@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./SECRETS.md)",
+      "Edit(./SECRETS.md)",
+      "Read(./private/**)",
+      "Edit(./private/**)"
+    ]
+  }
+}
