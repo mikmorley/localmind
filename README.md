@@ -155,7 +155,7 @@ vault when you can.
 
 ## Author
 
-Created by [Michael Morley](https://www.morley.cloud) ([michael@morley.cloud](mailto:michael@morley.cloud), [LinkedIn](https://www.linkedin.com/in/michaelmorleyau/)).
+Created by [Michael Morley](https://www.morley.cloud) ([LinkedIn](https://www.linkedin.com/in/michaelmorleyau/)).
 
 ## License
 
