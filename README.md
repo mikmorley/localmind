@@ -55,6 +55,8 @@ you can trust each one for its own job.
 
 ## Quickstart
 
+![Cloning LocalMind, building a vault from the template, and running /onboard in Claude Code](assets/demo.gif)
+
 1. Copy the contents of [`template/`](template/) into a new or existing vault (or clone
    this whole repo and start from there).
 2. Fill in the `[PLACEHOLDER]` text in `CLAUDE.md`, `INDEX.md`, and `NOW.md` with your own
@@ -107,6 +109,12 @@ placeholders) that shows the pattern at work: two [daily notes](example/daily-no
 sitting right alongside the work notes, in the same vault, under the same rules. Its own
 `CLAUDE.md`, `INDEX.md`, and `NOW.md` are filled in end to end. Start there if you want to
 see the pattern in practice before adapting `template/` to your own vault.
+
+Here's that same vault in an ongoing Claude Code session: recalling a project decision,
+updating `NOW.md` as priorities change, then doing the same for a personal note, all
+without leaving the conversation.
+
+![Claude Code recalling and updating project decisions in NOW.md, then doing the same for a personal note](assets/demo-memory.gif)
 
 ## Privacy and secrets
 
