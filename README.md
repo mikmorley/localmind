@@ -1,4 +1,6 @@
-# Second Brain
+# LocalMind
+
+Persistent memory for Claude Code, built from plain Markdown files you own.
 
 A boilerplate pattern for using a plain-Markdown note vault as [Claude Code](https://claude.com/claude-code)'s
 persistent memory, independent of any specific note app. It works whether the vault is
