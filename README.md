@@ -1,6 +1,6 @@
 # LocalMind
 
-Persistent memory for Claude Code, built from plain Markdown files you own.
+**Persistent memory for Claude Code, built from plain Markdown files you own.**
 
 A boilerplate pattern for using a plain-Markdown note vault as [Claude Code](https://claude.com/claude-code)'s
 persistent memory, independent of any specific note app. It works whether the vault is
@@ -58,7 +58,8 @@ you can trust each one for its own job.
 1. Copy the contents of [`template/`](template/) into a new or existing vault (or clone
    this whole repo and start from there).
 2. Fill in the `[PLACEHOLDER]` text in `CLAUDE.md`, `INDEX.md`, and `NOW.md` with your own
-   context.
+   context, either by hand or by running `/onboard` in a Claude Code session (see
+   [Onboarding skill](#onboarding-skill) below).
 3. Adjust `.claude/settings.json` if you have specific files that should be off-limits to
    Claude Code (see [Privacy and secrets](#privacy-and-secrets) below).
 4. Start a Claude Code session in the vault. If it doesn't already read `CLAUDE.md` on its
@@ -68,6 +69,18 @@ you can trust each one for its own job.
 Folder and file names in `template/` are suggestions. Rename `daily-notes/`, `projects/`,
 or anything else to fit how you work. The three files and the separation between them are
 what make the pattern work; folder names are yours to choose.
+
+## Onboarding skill
+
+`template/` ships with a Claude Code skill at
+[`.claude/skills/onboard/SKILL.md`](template/.claude/skills/onboard/SKILL.md). Run
+`/onboard` in a Claude Code session inside your vault, and it interviews you (vault
+purpose, off-limits files, naming conventions, current priorities) and writes the answers
+straight into `CLAUDE.md`, `INDEX.md`, and `NOW.md` in place of the placeholders. Run it
+again later to refresh `NOW.md`, or to walk through adding a new folder to `INDEX.md`.
+
+It's a shortcut, not a requirement. Every file it touches is still plain Markdown, so
+hand-editing works exactly as well before, during, or after using it.
 
 ## Philosophy
 
@@ -126,9 +139,11 @@ vault when you can.
 - Not an Obsidian plugin or theme. It's plain Markdown and YAML frontmatter, nothing more.
 - Not a note-taking app.
 - Not a fully automated agent system. The three files and the rules around them are the
-  whole pattern on their own. [Claude Code skills](https://docs.claude.com/en/docs/claude-code/skills)
-  can add automation on top once the base pattern works (a skill that re-audits
-  `INDEX.md` for drift, for example), but nothing here requires one.
+  whole pattern on their own; the included [onboarding skill](#onboarding-skill) is a
+  convenience for filling them in, not a requirement for using them.
+  [Claude Code skills](https://docs.claude.com/en/docs/claude-code/skills) can add more
+  automation on top if you want it (a skill that re-audits `INDEX.md` for drift, for
+  example), but nothing here requires one.
 
 ## Author
 

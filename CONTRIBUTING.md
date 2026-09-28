@@ -7,7 +7,7 @@ to what's below.
 ## What's in scope
 
 - Improvements to the pattern itself (the three-file structure, the conventions in
-  `template/CLAUDE.md`, the deny-list approach)
+  `template/CLAUDE.md`, the deny-list approach, the `onboard` skill)
 - Clarity improvements to the README or the docs inside `template/`
 - Additions to `example/` that better demonstrate an existing convention
 
