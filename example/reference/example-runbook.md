@@ -33,3 +33,7 @@ consecutive days.
 
 This runbook intentionally doesn't name specific tools or dashboards — fill in your own
 team's monitoring setup here if you adapt this note for a real vault.
+
+Distilled from the September ticket-spike project after the fact, once the same
+questions had come up twice. See `projects/support-triage-revamp/02-retro.md` for the
+project this came out of.
