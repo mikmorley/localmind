@@ -25,7 +25,7 @@ durable.
 
 ## projects/
 
-One subfolder per active project. Each project folder uses numbered files so reading
+One subfolder per project, active or finished. Each project folder uses numbered files so reading
 order is obvious: `00-overview.md` first (what it is, why it exists, current status),
 then `01-decisions.md` (a running decisions log, most recent first), then further numbered
 files as needed (`02-spec.md`, `03-retro.md`, etc.) for projects that grow.
