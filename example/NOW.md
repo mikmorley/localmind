@@ -16,21 +16,21 @@ cause rather than a separate fire.
 
 ## Top priorities
 
-1. Ship the combined profile-setup screen for the onboarding redesign — prototype due
-   2026-10-09 (see [projects/example-project/](projects/example-project/00-overview.md))
+1. Ship the combined profile-setup screen for the onboarding redesign, with the
+   prototype due 2026-10-09 (see [projects/onboarding-redesign/](projects/onboarding-redesign/00-overview.md))
 2. Keep an eye on support ticket volume in case it climbs past the 25% threshold that
    would call for the [support-spike runbook](reference/example-runbook.md)
 3. Get final copy for the combined screen to Dana by 2026-10-08
 
 ## In flight
 
-- Onboarding redesign — wireframes approved, prototype in progress. Latest decisions in
-  [projects/example-project/01-decisions.md](projects/example-project/01-decisions.md).
+- Onboarding redesign: wireframes approved, prototype in progress. Latest decisions in
+  [projects/onboarding-redesign/01-decisions.md](projects/onboarding-redesign/01-decisions.md).
 - Marcus scoping the profile-photo loading state for the combined screen.
 
 ## Lower priority / parked
 
-- Invite-teammates flow redesign — deprioritized behind the profile-setup fix per the
+- Invite-teammates flow redesign: deprioritized behind the profile-setup fix per the
   2026-10-05 decision; revisit once onboarding work ships.
 - Personal: finish *Cartography for Beginners* before the December trip. See
   [personal/reading-list.md](personal/reading-list.md).

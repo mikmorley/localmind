@@ -63,13 +63,16 @@ order, so there's still only one place to edit each rule.
 ![Cloning LocalMind, building a vault from the template, and running /onboard in Claude Code](assets/demo.gif)
 
 1. Copy the contents of [`template/`](template/) into a new or existing vault, including
-   the hidden `.claude/` folder, which holds the deny rules and the onboarding skill.
-   `cp template/*` and most file managers skip hidden folders, so copy it like this
-   instead (or clone this whole repo and start from there):
+   the hidden files: the `.claude/` folder (deny rules and the onboarding skill) and a
+   starter `.gitignore`. `cp template/*` and most file managers skip hidden files, so
+   copy it like this instead (or clone this whole repo and start from there):
 
    ```bash
    cp -r template/. /path/to/your/vault/
    ```
+
+   In an existing vault, this overwrites any file with the same name, such as an existing
+   `.gitignore`. Back those up first and merge them by hand.
 2. Fill in the `[PLACEHOLDER]` text in `CLAUDE.md`, `INDEX.md`, and `NOW.md` with your own
    context, either by hand or by running `/onboard` in a Claude Code session (see
    [Onboarding skill](#onboarding-skill) below).
@@ -122,7 +125,7 @@ hand-editing works exactly as well before, during, or after using it.
 
 [`example/`](example/) is a small, fully filled-in vault for a fictional team (no
 placeholders) that shows the pattern at work: two [daily notes](example/daily-notes/), a
-[project](example/projects/example-project/) using the numbered-file convention
+[project](example/projects/onboarding-redesign/) using the numbered-file convention
 (`00-overview.md`, `01-decisions.md`), a [meeting note](example/meetings/), a
 [reference runbook](example/reference/), and a [personal note](example/personal/)
 sitting right alongside the work notes, in the same vault, under the same rules. Its own

@@ -10,7 +10,7 @@ updated: 2026-10-06
 
 A redesign of the new-user onboarding flow for Briarwood Collective's product, aimed at
 reducing drop-off during account setup. This is the "example project" referenced in
-[INDEX.md](../../INDEX.md) — its two files (`00-overview.md`, `01-decisions.md`) show the
+[INDEX.md](../../INDEX.md): its two files (`00-overview.md`, `01-decisions.md`) show the
 numbered-file convention this vault uses for project folders: overview first, then a
 running decisions log, with any further files (specs, research, retros) numbered after.
 
@@ -27,9 +27,9 @@ friction elsewhere in the flow.
 
 ## Team
 
-- Dana — design
-- Marcus — engineering
-- Priya — product lead, owns this note
+- Dana: design
+- Marcus: engineering
+- Priya: product lead, owns this note
 
 ## Status
 
