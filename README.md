@@ -57,16 +57,22 @@ you can trust each one for its own job.
 
 ![Cloning LocalMind, building a vault from the template, and running /onboard in Claude Code](assets/demo.gif)
 
-1. Copy the contents of [`template/`](template/) into a new or existing vault (or clone
-   this whole repo and start from there).
+1. Copy the contents of [`template/`](template/) into a new or existing vault, including
+   the hidden `.claude/` folder, which holds the deny rules and the onboarding skill.
+   `cp template/*` and most file managers skip hidden folders, so copy it like this
+   instead (or clone this whole repo and start from there):
+
+   ```bash
+   cp -r template/. /path/to/your/vault/
+   ```
 2. Fill in the `[PLACEHOLDER]` text in `CLAUDE.md`, `INDEX.md`, and `NOW.md` with your own
    context, either by hand or by running `/onboard` in a Claude Code session (see
    [Onboarding skill](#onboarding-skill) below).
 3. Adjust `.claude/settings.json` if you have specific files that should be off-limits to
    Claude Code (see [Privacy and secrets](#privacy-and-secrets) below).
-4. Start a Claude Code session in the vault. If it doesn't already read `CLAUDE.md` on its
-   own, point it there yourself; from there it should read `INDEX.md`, then `NOW.md`, and
-   orient itself.
+4. Start a Claude Code session in the vault. Claude Code loads `CLAUDE.md` automatically,
+   and its `@INDEX.md` and `@NOW.md` imports pull in the other two files, so every session
+   starts oriented without being told where to look.
 
 Folder and file names in `template/` are suggestions. Rename `daily-notes/`, `projects/`,
 or anything else to fit how you work. The three files and the separation between them are
@@ -89,7 +95,10 @@ hand-editing works exactly as well before, during, or after using it.
 - **Memory lives in one place.** Split durable facts between the vault and the tool's own
   separate memory feature, and neither one is trustworthy: you end up checking both, or
   trusting neither. The vault stays the single source of truth because it's plain text,
-  versioned, and portable across tools.
+  versioned, and portable across tools. The template's `.claude/settings.json` backs this
+  up with `"autoMemoryEnabled": false`, which stops Claude Code reading or writing its own
+  auto-memory folder for the vault. Set it to `true` if you want auto memory for
+  something narrow.
 - **The index describes patterns, not files.** List every file and the index goes stale
   the moment you add one that isn't on it. Describe a folder as "daily notes live here,
   named like this, containing that," and the index stays accurate as the vault grows:
@@ -136,11 +145,18 @@ to specific files or folders:
 }
 ```
 
-This is a backstop enforced by the tool. It doesn't replace keeping live credentials out
-of the vault in the first place. A rule in `CLAUDE.md` ("never read this file") is a
-convention, and a model can be talked past a convention. A `settings.json` deny rule is
-enforced regardless of what the prompt says. Use both, and keep real secrets out of the
-vault when you can.
+A rule in `CLAUDE.md` ("never read this file") is a convention, and a model can be talked
+past a convention. A `settings.json` deny rule is enforced by Claude Code whatever the
+prompt says, but only where Claude Code can see the file being read: its own file tools,
+and shell commands that name the file, such as `cat SECRETS.md`. A command that reads
+files without naming them, like `grep -r password .`, gets past the deny rule alone.
+
+To close that gap, turn on Claude Code's sandbox (run `/sandbox` in a session). The
+sandbox applies your Read deny paths at the OS level to every shell command, so the two
+layers together cover both routes.
+
+Even then, this is a backstop. Use the `CLAUDE.md` rule and the deny rule together, and
+keep live credentials out of the vault when you can.
 
 ## What this isn't
 

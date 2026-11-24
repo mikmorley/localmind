@@ -12,12 +12,19 @@ doesn't (code, for example, which lives in its own repo).]
 
 ## Start here
 
-Every session, read in this order:
+Claude Code loads this file at the start of every session, and these two imports load
+the other two files with it:
 
-1. **[INDEX.md](INDEX.md)**: where things live. Read this first to understand the shape
-   of the vault before going looking for anything.
-2. **[NOW.md](NOW.md)**: what matters right now. Read this second so you're reasoning
-   from current priorities, not stale assumptions.
+@INDEX.md
+@NOW.md
+
+- **[INDEX.md](INDEX.md)**: where things live. Use it to understand the shape of the
+  vault before going looking for anything.
+- **[NOW.md](NOW.md)**: what matters right now. Check its `updated:` date, and say so if
+  it looks stale rather than reasoning from old priorities.
+
+A tool that doesn't support `@` imports should read INDEX.md, then NOW.md, before
+anything else.
 
 Do not skip straight to a folder because a filename looks relevant. INDEX.md may point
 you to a more current or more specific note than the one you guessed.
@@ -32,8 +39,9 @@ you to a more current or more specific note than the one you guessed.
 - `private/`: personal or sensitive notes not meant for shared context.
 
 This rule is backed by a matching deny rule in [.claude/settings.json](.claude/settings.json).
-A rule written here alone is a convention. The settings.json deny-list is what actually
-enforces it. Keep both in sync when you add a new off-limits file.
+A rule written here alone is a convention. The deny rule is what enforces it, for Claude
+Code's file tools and shell commands that name the file; the sandbox (`/sandbox`) covers
+indirect reads like `grep -r`. Keep both in sync when you add a new off-limits file.
 
 ## Memory policy
 
@@ -41,9 +49,12 @@ Durable facts, decisions, and context belong in vault notes. Keep them out of th
 own separate memory feature. The vault is the single source of truth so that memory is
 readable, editable, and portable outside of any one tool.
 
-[PLACEHOLDER: If you want to allow the tool's own memory feature for something narrower
-(your working-style preferences, say, not project facts), state that here. Otherwise
-state that the tool's memory feature should stay empty or unused.]
+Claude Code's own auto memory is switched off for this vault by `"autoMemoryEnabled": false`
+in [.claude/settings.json](.claude/settings.json).
+
+[PLACEHOLDER: If you want auto memory for something narrower (your working-style
+preferences, say, not project facts), set that key to `true` and state what it's for here.
+Otherwise delete this placeholder.]
 
 ## Vault conventions
 
