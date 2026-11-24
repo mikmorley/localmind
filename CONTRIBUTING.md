@@ -37,7 +37,7 @@ to what's below.
    python3 scripts/check.py
    ```
 
-   It checks that every `.claude/settings.json` copy is valid and identical, that
-   `template/` still has its `[PLACEHOLDER]` markers and `example/` has none, and that
-   relative links, `#anchors`, and `@` imports all resolve. It needs only the Python
-   standard library.
+   It checks that every `.claude/settings.json` copy is valid and identical, that the
+   `AGENTS.md` copies are identical, that `template/` still has its `[PLACEHOLDER]`
+   markers and `example/` has none, and that relative links, `#anchors`, and `@` imports
+   all resolve. It needs only the Python standard library.
