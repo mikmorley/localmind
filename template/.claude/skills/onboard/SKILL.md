@@ -14,7 +14,8 @@ can, and let them accept it, edit it, or skip it.
 ## Before you start
 
 Find `CLAUDE.md`, `INDEX.md`, and `NOW.md` in the current directory. If none exist, stop
-and tell the person to copy the contents of `template/` into their vault first.
+and tell the person to copy the contents of `template/` into their vault first, with
+`cp -r template/. /path/to/vault/` so the hidden `.claude/` folder comes too.
 
 Check `CLAUDE.md` for `[PLACEHOLDER]` markers.
 
@@ -37,7 +38,8 @@ conversation.
    `CLAUDE.md`, and add a matching deny rule for each one to `.claude/settings.json`.
 3. **Memory policy.** "Should the tool's own separate memory feature stay unused, or do
    you want it for something narrow, like your own working-style preferences?" Fills
-   `## Memory policy` in `CLAUDE.md`.
+   `## Memory policy` in `CLAUDE.md`. If they want it, set `"autoMemoryEnabled"` to `true`
+   in `.claude/settings.json`; otherwise leave it `false`.
 4. **Conventions.** "How do you want to name files? Any tagging convention? Do old dated
    notes get archived, and if so, how?" Fills `## Vault conventions` in `CLAUDE.md`.
 5. **Structure.** "What top-level folders do you want? Daily notes, projects, meetings,
