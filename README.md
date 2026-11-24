@@ -45,7 +45,7 @@ takes a different starting point:
   and naming pattern, not an exhaustive file listing. It changes occasionally, when the
   shape of the vault changes, not when its contents do.
 - **[NOW.md](template/NOW.md)** holds *what matters right now*: current priorities and
-  situation, dated, short, and rewritten every session.
+  situation, dated, short, and rewritten whenever priorities change.
 
 These three age at different rates and get read for different reasons. Merge them into
 one file and either the rules get buried under a wall of changing status updates, or the
@@ -105,8 +105,10 @@ hand-editing works exactly as well before, during, or after using it.
   new files that follow the pattern don't need an entry.
 - **NOW.md keeps context current.** Without it, Claude Code infers what's current from
   file timestamps and guesswork, or works from whatever it read last, which might be
-  weeks old. Rewriting it every session, with today's date on it, forces a check against
-  stale context.
+  weeks old. Rewriting it whenever priorities change, with the date on it, makes stale
+  context visible: an old `updated:` date is a warning in itself. The opt-in
+  [NOW.md staleness hook](extras/hooks/now-staleness/) turns that into an automatic
+  warning at the start of each session.
 
 ## Worked example
 
@@ -167,7 +169,8 @@ keep live credentials out of the vault when you can.
   convenience for filling them in, not a requirement for using them.
   [Claude Code skills](https://docs.claude.com/en/docs/claude-code/skills) can add more
   automation on top if you want it (a skill that re-audits `INDEX.md` for drift, for
-  example), but nothing here requires one.
+  example), but nothing here requires one. Opt-in automation lives in
+  [`extras/`](extras/).
 
 ## Author
 

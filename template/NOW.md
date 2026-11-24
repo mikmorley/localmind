@@ -2,8 +2,9 @@
 updated: [DATE]
 ---
 
-<!-- This file is meant to be rewritten every session, not appended to. When priorities
-     change, replace the content below. Don't leave old entries trailing under new ones. -->
+<!-- This file is meant to be rewritten whenever priorities change, not appended to.
+     Replace the content below and update the date. Don't leave old entries trailing
+     under new ones. -->
 
 # Now
 

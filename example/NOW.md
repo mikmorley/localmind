@@ -2,8 +2,9 @@
 updated: 2026-10-06
 ---
 
-<!-- This file is meant to be rewritten often, not appended to. When priorities change,
-     replace the content below — don't leave old entries trailing under new ones. -->
+<!-- This file is meant to be rewritten whenever priorities change, not appended to.
+     Replace the content below and update the date. Don't leave old entries trailing
+     under new ones. -->
 
 # Now
 

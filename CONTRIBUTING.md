@@ -20,8 +20,9 @@ to what's below.
   The pattern is plain Markdown and YAML frontmatter on purpose, so it works whether the
   vault is opened in Obsidian, a plain text editor, or nothing at all.
 - New scope beyond the pattern itself. This isn't the place for a notes app, a sync
-  service, or an automated agent system. Skills or scripts can be mentioned as optional
-  extensions, but nothing here should require one to work.
+  service, or an automated agent system. Optional skills, hooks or scripts go in
+  `extras/`, each with its own README, and nothing in `template/` should require one
+  to work.
 
 ## Making a change
 

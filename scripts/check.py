@@ -11,16 +11,43 @@ Checks:
   4. Relative Markdown links and images point at files that exist, and #anchors
      match a heading in the target file.
   5. @ imports in CLAUDE.md files point at files that exist.
+  6. The opt-in NOW.md staleness hook in extras/ gives the right result for fresh,
+     stale, undated and missing NOW.md files (skipped if bash isn't installed).
 """
 
 import json
+import os
 import re
+import shutil
+import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 CORE_FILES = ("CLAUDE.md", "INDEX.md", "NOW.md")
 EXAMPLE_MARKERS = ("[PLACEHOLDER", "[DATE]")
+HOOK = ROOT / "extras" / "hooks" / "now-staleness" / "now-staleness.sh"
+
+# (NOW.md content or None for no file, today, hook args, expected warning text or None
+# for silence)
+HOOK_CASES = [
+    ("---\nupdated: 2026-10-06\n---\n", "2026-10-08", [], None),
+    ("---\nupdated: 2026-10-06\n---\n", "2026-10-13", [], None),
+    ("---\nupdated: 2026-10-06\n---\n", "2026-10-14", [], "8 days ago"),
+    ("---\nupdated: 2026-10-06\n---\n", "2026-11-24", ["7"], "49 days ago"),
+    ("---\nupdated: 2026-10-06\n---\n", "2026-11-24", ["60"], None),
+    ("---\nupdated: 2026-10-06\n---\n", "2026-10-07", ["0"], "1 day ago"),
+    ("---\nupdated: 2024-02-28\n---\n", "2024-03-01", ["1"], "2 days ago"),
+    ("---\nupdated: 2026-12-31\n---\n", "2027-01-02", ["0"], "2 days ago"),
+    ('---\ntype: now\nupdated: "2026-10-06"\n---\n', "2026-10-14", [], "8 days ago"),
+    ("---\r\nupdated: 2026-10-06\r\n---\r\n", "2026-10-14", [], "8 days ago"),
+    ("---\nupdated: 2026-10-06\n---\n", "2026-10-14", ["abc"], "8 days ago"),
+    ("---\nupdated: [DATE]\n---\n", "2026-10-07", [], "no valid updated"),
+    ("# Now\n\nupdated: 2026-10-06\n", "2026-10-07", [], "no valid updated"),
+    ("---\ntitle: now\n---\nupdated: 2026-10-06\n", "2026-10-07", [], "no valid updated"),
+    (None, "2026-10-07", [], "no NOW.md"),
+]
 
 FENCE = re.compile(r"^(```|~~~).*?^\1[^\n]*$", re.MULTILINE | re.DOTALL)
 INLINE_CODE = re.compile(r"`[^`\n]*`")
@@ -136,10 +163,47 @@ def check_links():
                                   f"@ import not found: {target}")
 
 
+def check_hook():
+    if not HOOK.exists():
+        return
+    if not os.access(HOOK, os.X_OK):
+        errors.append(f"{rel(HOOK)}: not executable; run chmod +x on it")
+    if shutil.which("bash") is None:
+        print(f"Skipping {rel(HOOK)} tests: bash not found.")
+        return
+    for content, today, args, expected in HOOK_CASES:
+        with tempfile.TemporaryDirectory() as vault:
+            if content is not None:
+                Path(vault, "NOW.md").write_bytes(content.encode())
+            env = {**os.environ, "CLAUDE_PROJECT_DIR": vault, "LOCALMIND_TODAY": today}
+            result = subprocess.run(["bash", str(HOOK), *args], env=env,
+                                    capture_output=True, text=True, timeout=10)
+        case = f"{rel(HOOK)} (NOW.md {content!r}, today {today}, args {args})"
+        out = result.stdout.strip()
+        if result.returncode != 0:
+            errors.append(f"{case}: exited {result.returncode}, expected 0")
+        if expected is None:
+            if out:
+                errors.append(f"{case}: expected no output, got {out}")
+            continue
+        try:
+            data = json.loads(out)
+        except json.JSONDecodeError:
+            errors.append(f"{case}: output is not valid JSON: {out!r}")
+            continue
+        specific = data.get("hookSpecificOutput", {})
+        if specific.get("hookEventName") != "SessionStart":
+            errors.append(f"{case}: hookSpecificOutput.hookEventName is not SessionStart")
+        message = data.get("systemMessage", "")
+        if expected not in message or not specific.get("additionalContext"):
+            errors.append(f"{case}: expected a warning containing {expected!r}, got {out}")
+
+
 def main():
     check_settings()
     check_placeholders()
     check_links()
+    check_hook()
     if errors:
         print(f"{len(errors)} problem(s) found:")
         for error in errors:
