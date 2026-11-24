@@ -30,3 +30,13 @@ to what's below.
    the two stay consistent. The example vault exists to demonstrate the template in use.
 3. Keep `template/CLAUDE.md` small. If your change makes it noticeably longer, consider
    whether the content belongs there or in a vault note instead.
+4. Run the consistency checks before opening a PR. CI runs the same script on every PR.
+
+   ```bash
+   python3 scripts/check.py
+   ```
+
+   It checks that every `.claude/settings.json` copy is valid and identical, that
+   `template/` still has its `[PLACEHOLDER]` markers and `example/` has none, and that
+   relative links, `#anchors`, and `@` imports all resolve. It needs only the Python
+   standard library.
