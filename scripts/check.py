@@ -6,6 +6,7 @@ Uses the standard library only, so it runs the same locally and in CI.
 
 Checks:
   1. Every .claude/settings.json is valid JSON, and all copies are identical.
+     template/ and example/ both have an AGENTS.md, and the two are identical.
   2. Each core file in template/ still has [PLACEHOLDER] markers.
   3. Nothing in example/ has a leftover [PLACEHOLDER] or [DATE] marker.
   4. Relative Markdown links and images point at files that exist, and #anchors
@@ -199,8 +200,19 @@ def check_hook():
             errors.append(f"{case}: expected a warning containing {expected!r}, got {out}")
 
 
+def check_agents():
+    copies = [ROOT / "template" / "AGENTS.md", ROOT / "example" / "AGENTS.md"]
+    missing = [p for p in copies if not p.exists()]
+    for path in missing:
+        errors.append(f"{rel(path)}: missing")
+    if not missing and copies[0].read_bytes() != copies[1].read_bytes():
+        errors.append(f"{rel(copies[1])}: differs from {rel(copies[0])}; "
+                      "AGENTS.md is a generic pointer, so keep both copies identical")
+
+
 def main():
     check_settings()
+    check_agents()
     check_placeholders()
     check_links()
     check_hook()

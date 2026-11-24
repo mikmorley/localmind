@@ -21,8 +21,9 @@ takes a different starting point:
   own git repo, not on a vendor's server. It survives closing an account, switching tools,
   or a vendor changing its memory feature entirely.
 - **No lock-in.** Plain Markdown works with any AI tool that can read a file, not only
-  Claude Code. The vault you build today keeps working if you move to a different
-  assistant next year.
+  Claude Code. A short `AGENTS.md` points tools that look for one (Codex and Cursor, for
+  example) at the same three files, so the vault you build today keeps working if you
+  move to a different assistant next year.
 - **Every fact is auditable.** The assistant's memory is a set of files you can open, diff,
   and check into git history, not an opaque blob you have to take on faith. If it acted on
   something wrong, you can see exactly what it read and when that file last changed.
@@ -52,6 +53,10 @@ one file and either the rules get buried under a wall of changing status updates
 status updates get stale because you don't want to touch the file that also holds the
 rules. Keeping them separate means each file stays exactly as long as it needs to be, and
 you can trust each one for its own job.
+
+[`AGENTS.md`](template/AGENTS.md) isn't a fourth source of truth. It's a pointer for
+tools other than Claude Code, telling them to read the same three files in the same
+order, so there's still only one place to edit each rule.
 
 ## Quickstart
 
@@ -159,6 +164,11 @@ layers together cover both routes.
 
 Even then, this is a backstop. Use the `CLAUDE.md` rule and the deny rule together, and
 keep live credentials out of the vault when you can.
+
+Both of those enforcement layers belong to Claude Code. Other tools don't read
+`.claude/settings.json`, so with them the off-limits list is only a convention:
+`AGENTS.md` asks them to honour it, but nothing makes them. If you point another tool at
+the vault, assume it can read anything in it.
 
 ## What this isn't
 
