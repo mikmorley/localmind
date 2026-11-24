@@ -88,9 +88,12 @@ what make the pattern work; folder names are yours to choose.
 `template/` ships with a Claude Code skill at
 [`.claude/skills/onboard/SKILL.md`](template/.claude/skills/onboard/SKILL.md). Run
 `/onboard` in a Claude Code session inside your vault, and it interviews you (vault
-purpose, off-limits files, naming conventions, current priorities) and writes the answers
-straight into `CLAUDE.md`, `INDEX.md`, and `NOW.md` in place of the placeholders. Run it
-again later to refresh `NOW.md`, or to walk through adding a new folder to `INDEX.md`.
+purpose, off-limits files, naming conventions, folder structure, current priorities),
+writes the answers straight into `CLAUDE.md`, `INDEX.md`, and `NOW.md` in place of the
+placeholders, and creates the folders you list once you confirm them. If you stop
+partway, running it again picks up from the sections that still have placeholders.
+Once setup is done, run it again to refresh `NOW.md`, or to walk through adding a new
+folder to `INDEX.md`.
 
 It's a shortcut, not a requirement. Every file it touches is still plain Markdown, so
 hand-editing works exactly as well before, during, or after using it.
