@@ -4,7 +4,7 @@ status: done
 updated: 2026-09-14
 ---
 
-# Support Ticket Triage Revamp — Retro
+# Support Ticket Triage Revamp: Retro
 
 ## What worked
 

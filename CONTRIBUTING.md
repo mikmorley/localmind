@@ -38,6 +38,10 @@ to what's below.
    ```
 
    It checks that every `.claude/settings.json` copy is valid and identical, that the
-   `AGENTS.md` copies are identical, that `template/` still has its `[PLACEHOLDER]`
-   markers and `example/` has none, and that relative links, `#anchors`, and `@` imports
-   all resolve. It needs only the Python standard library.
+   `AGENTS.md` and `.gitignore` copies are identical, that `template/` still has its
+   `[PLACEHOLDER]` markers and `example/` has none, that `template/` and `example/` have
+   no em dashes, and that relative links, `#anchors`, and `@` imports all resolve. It
+   needs only the Python standard library.
+5. House style for `template/` and `example/`: no em dashes. Use a comma, colon, period,
+   or parentheses, whichever reads most naturally. The check enforces this, so the
+   files stay consistent however many people edit them.

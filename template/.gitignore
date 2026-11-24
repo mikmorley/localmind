@@ -1,0 +1,15 @@
+# Starter .gitignore for a LocalMind vault. Edit it to suit how you work.
+
+# Claude Code: personal overrides of the shared .claude/settings.json
+.claude/settings.local.json
+
+# Obsidian: per-device workspace layout (the rest of .obsidian/ is shared config)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# Obsidian's local trash folder
+.trash/
+
+# OS clutter
+.DS_Store
+Thumbs.db

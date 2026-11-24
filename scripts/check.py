@@ -6,13 +6,15 @@ Uses the standard library only, so it runs the same locally and in CI.
 
 Checks:
   1. Every .claude/settings.json is valid JSON, and all copies are identical.
-     template/ and example/ both have an AGENTS.md, and the two are identical.
+     template/ and example/ both have an AGENTS.md and a .gitignore, and each pair
+     is identical.
   2. Each core file in template/ still has [PLACEHOLDER] markers.
   3. Nothing in example/ has a leftover [PLACEHOLDER] or [DATE] marker.
   4. Relative Markdown links and images point at files that exist, and #anchors
      match a heading in the target file.
   5. @ imports in CLAUDE.md files point at files that exist.
-  6. The opt-in NOW.md staleness hook in extras/ gives the right result for fresh,
+  6. No em dashes in template/ or example/ (house style).
+  7. The opt-in NOW.md staleness hook in extras/ gives the right result for fresh,
      stale, undated and missing NOW.md files (skipped if bash isn't installed).
 """
 
@@ -28,6 +30,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 CORE_FILES = ("CLAUDE.md", "INDEX.md", "NOW.md")
 EXAMPLE_MARKERS = ("[PLACEHOLDER", "[DATE]")
+SHARED_FILES = ("AGENTS.md", ".gitignore")
+EM_DASH = "\u2014"
 HOOK = ROOT / "extras" / "hooks" / "now-staleness" / "now-staleness.sh"
 
 # (NOW.md content or None for no file, today, hook args, expected warning text or None
@@ -200,19 +204,36 @@ def check_hook():
             errors.append(f"{case}: expected a warning containing {expected!r}, got {out}")
 
 
-def check_agents():
-    copies = [ROOT / "template" / "AGENTS.md", ROOT / "example" / "AGENTS.md"]
-    missing = [p for p in copies if not p.exists()]
-    for path in missing:
-        errors.append(f"{rel(path)}: missing")
-    if not missing and copies[0].read_bytes() != copies[1].read_bytes():
-        errors.append(f"{rel(copies[1])}: differs from {rel(copies[0])}; "
-                      "AGENTS.md is a generic pointer, so keep both copies identical")
+def check_shared_files():
+    for name in SHARED_FILES:
+        copies = [ROOT / "template" / name, ROOT / "example" / name]
+        missing = [p for p in copies if not p.exists()]
+        for path in missing:
+            errors.append(f"{rel(path)}: missing")
+        if not missing and copies[0].read_bytes() != copies[1].read_bytes():
+            errors.append(f"{rel(copies[1])}: differs from {rel(copies[0])}; "
+                          f"{name} is generic, so keep both copies identical")
+
+
+def check_em_dashes():
+    for folder in ("template", "example"):
+        for path in sorted((ROOT / folder).rglob("*")):
+            if not path.is_file():
+                continue
+            try:
+                text = path.read_text(encoding="utf-8")
+            except UnicodeDecodeError:
+                continue
+            for lineno, line in enumerate(text.splitlines(), 1):
+                if EM_DASH in line:
+                    errors.append(f"{rel(path)}:{lineno}: em dash; house style is to use a "
+                                  "comma, colon, period, or parentheses instead")
 
 
 def main():
     check_settings()
-    check_agents()
+    check_shared_files()
+    check_em_dashes()
     check_placeholders()
     check_links()
     check_hook()

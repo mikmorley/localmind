@@ -5,16 +5,16 @@ updated: 2026-10-06
 
 # Index
 
-This file maps *where things live*, by folder purpose and naming pattern — not an
-exhaustive file listing. It should go stale slower than a full file list would, because
-it describes the shape of the vault rather than its current contents.
+This file maps *where things live*, by folder purpose and naming pattern, not an
+exhaustive file listing. It goes stale slower than a full file list would, because it
+describes the shape of the vault rather than its current contents.
 
 For *what matters right now*, see [NOW.md](NOW.md) instead.
 
 ## daily-notes/
 
 One file per day: tasks, running notes, and any decisions made that day. This is where
-most day-to-day capture happens — if something important comes up mid-day, it lands here
+most day-to-day capture happens. If something important comes up mid-day, it lands here
 first, and gets promoted to a project file or reference note later if it turns out to be
 durable.
 
@@ -32,7 +32,7 @@ files as needed (`02-spec.md`, `03-retro.md`, etc.) for projects that grow.
 
 - **Naming pattern:** `projects/<project-name>/NN-topic.md`
 - **Contains:** overview, decisions log, and any project-specific supporting files
-- **Example:** `projects/example-project/00-overview.md`
+- **Example:** `projects/onboarding-redesign/00-overview.md`
 
 ## meetings/
 
@@ -48,7 +48,7 @@ action-items structure is different enough from a daily note to warrant its own 
 
 Durable material that doesn't change often: runbooks, standing procedures, glossaries.
 Unlike daily notes or project files, reference notes are updated only when the underlying
-process or fact changes — not on a regular cadence.
+process or fact changes, not on a regular cadence.
 
 - **Naming pattern:** `lowercase-hyphenated-topic.md`
 - **Contains:** one note per procedure or topic, no dating convention needed since these
@@ -68,7 +68,7 @@ just filed under its own folder.
 
 ## How to keep this current
 
-Re-audit this file periodically — when a folder's purpose changes, when you add a new
+Re-audit this file periodically: when a folder's purpose changes, when you add a new
 top-level folder, or when the naming pattern for a folder drifts from what's written here.
 This is a manual habit by default; if the vault grows large enough to justify it, this
 re-audit can later be automated with a script or a Claude Code skill that scans folder
